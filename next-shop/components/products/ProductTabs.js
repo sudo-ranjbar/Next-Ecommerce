@@ -13,7 +13,6 @@ export default function ProductTabs({ tabList, tabPanel }) {
                         منو محصولات
                     </h2>
                 </div>
-                {console.log(tabList)}
 
                 <Tabs selectedTabClassName="active">
                     <TabList>

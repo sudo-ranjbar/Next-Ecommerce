@@ -1302,3 +1302,9 @@ a:focus {
     width: 50%;
   }
 }
+
+.Toastify__toast-body {
+  font-family: "Vazir", sans-serif !important;
+  direction: rtl;
+
+}
