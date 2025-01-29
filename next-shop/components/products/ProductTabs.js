@@ -1,5 +1,7 @@
+"use client"
 import Link from "next/link"
 import ProductBox from "./ProductBox"
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
 export default function ProductTabs({ tabList, tabPanel }) {
 
@@ -13,23 +15,29 @@ export default function ProductTabs({ tabList, tabPanel }) {
                 </div>
                 {console.log(tabList)}
 
-                <ul className="filters_menu">
-                    {tabList.map((item, index) => (
-                        <li key={index}>{item}</li>
-                    ))}
-                </ul>
-
-                <div className="filters-content">
-                    {tabPanel.map((panel, index) => (
-                        <div key={index} className="row grid">
-                            {panel.map((product) => (
-                                <div key={product.id} className="col-sm-6 col-lg-4">
-                                    <ProductBox product={product} />
-                                </div>
+                <Tabs selectedTabClassName="active">
+                    <TabList>
+                        <ul className="filters_menu">
+                            {tabList.map((item, index) => (
+                                <Tab key={index}>{item}</Tab>
                             ))}
-                        </div>
-                    ))}
-                </div>
+                        </ul>
+                    </TabList>
+
+                    <div className="filters-content">
+                        {tabPanel.map((panel, index) => (
+                            <TabPanel key={index}>
+                                <div className="row grid">
+                                    {panel.map((product) => (
+                                        <div key={product.id} className="col-sm-6 col-lg-4">
+                                            <ProductBox product={product} />
+                                        </div>
+                                    ))}
+                                </div>
+                            </TabPanel>
+                        ))}
+                    </div>
+                </Tabs>
 
                 <div className="btn-box">
                     <Link href="/menu">
