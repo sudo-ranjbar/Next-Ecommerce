@@ -1,28 +1,32 @@
+"use client"
 
 import Image from "next/image";
 import heroImg from "@/public/images/hero-bg.jpg"
 import Slider from "./Slider";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function Header() {
 
-
+    const pathname = usePathname();
 
 
     return (
-        <div>
+        <div className={pathname === "/" ? "" : "sub_page"}>
             <div className="hero_area">
+
                 <div className="bg-box">
                     <Image src={heroImg} alt="hero-image" priority />
                 </div>
-                {/* <!-- header section strats --> */}
+
                 <header className="header_section">
                     <div className="container">
                         <nav className="navbar navbar-expand-lg custom_nav-container">
-                            <a className="navbar-brand" href="index.html">
+                            <Link className="navbar-brand" href="/">
                                 <span>
                                     webprog.io
                                 </span>
-                            </a>
+                            </Link>
 
                             <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -32,19 +36,20 @@ export default function Header() {
 
                             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                                 <ul className="navbar-nav mx-auto">
-                                    <li className="nav-item active">
-                                        <a className="nav-link" href="index.html">صفحه اصلی</a>
+                                    <li className={pathname === "/" ? "nav-item active" : "nav-item"}>
+                                        <Link className="nav-link" href="/">صفحه اصلی</Link>
                                     </li>
-                                    <li className="nav-item">
-                                        <a className="nav-link" href="menu.html">منو</a>
+                                    <li className={pathname === "/menu" ? "nav-item active" : "nav-item"}>
+                                        <Link className="nav-link" href="/menu">منو</Link>
                                     </li>
-                                    <li className="nav-item">
-                                        <a className="nav-link" href="about.html">درباره ما</a>
+                                    <li className={pathname === "/about" ? "nav-item active" : "nav-item"}>
+                                        <Link className="nav-link" href="/about">درباره ما</Link>
                                     </li>
-                                    <li className="nav-item">
-                                        <a className="nav-link" href="contact.html">تماس باما</a>
+                                    <li className={pathname === "/contact" ? "nav-item active" : "nav-item"}>
+                                        <Link className="nav-link" href="/contact">تماس باما</Link>
                                     </li>
                                 </ul>
+
                                 <div className="user_option">
                                     <a className="cart_link position-relative" href="cart.html">
                                         <i className="bi bi-cart-fill text-white fs-5"></i>
@@ -56,12 +61,13 @@ export default function Header() {
                                         ورود
                                     </a>
                                 </div>
+
                             </div>
                         </nav>
                     </div>
                 </header>
-                {/* <!-- end header section --> */}
-                <Slider />
+
+                {pathname === "/" && <Slider />}
             </div>
         </div>
     )

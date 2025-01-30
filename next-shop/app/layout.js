@@ -5,6 +5,8 @@ import "react-toastify/dist/ReactToastify.css"
 import BootstrapClient from "@/components/libraries/BootstrapClient";
 import Header from "@/components/layouts/Header";
 import ToastifyClient from "@/components/libraries/ToastifyClient";
+import Footer from "@/components/layouts/Footer";
+import Providers from "@/components/libraries/ProgressBarClient";
 
 export const metadata = {
 	title: "فروشگاه غذا",
@@ -15,20 +17,23 @@ export default function RootLayout({ children }) {
 	return (
 		<html lang="fa" dir="rtl">
 			<body>
-				<Header />
-				{children}
-				<ToastifyClient
-					position="top-right"
-					autoClose={2500}
-					hideProgressBar={false}
-					newestOnTop={false}
-					closeOnClick={true}
-					rtl={true}
-					pauseOnFocusLoss
-					draggable
-					pauseOnHover
-					theme="colored" />
-				<BootstrapClient />
+				<Providers>
+					<Header />
+					{children}
+					<Footer />
+					<ToastifyClient
+						position="top-right"
+						autoClose={2500}
+						hideProgressBar={false}
+						newestOnTop={false}
+						closeOnClick={true}
+						rtl={true}
+						pauseOnFocusLoss
+						draggable
+						pauseOnHover
+						theme="colored" />
+					<BootstrapClient />
+				</Providers>
 			</body>
 		</html>
 	);
