@@ -22,7 +22,7 @@ export default function FormContact() {
                     <input name="name" type="text" className="form-control" placeholder="نام و نام خانوادگی" />
                 </div>
                 <div>
-                    <input name="email" type="email" className="form-control" placeholder="ایمیل" />
+                    <input name="email" type="email" className="form-control" placeholder="ایمیل" style={{ direction: "rtl" }} />
                 </div>
                 <div>
                     <input name="subject" type="text" className="form-control" placeholder="موضوع پیام" />
