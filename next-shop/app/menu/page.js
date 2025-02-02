@@ -2,6 +2,7 @@ import CategoriesList from "@/components/menu/CategoriesList"
 import Loading from "@/components/menu/loading"
 import ProductsList from "@/components/menu/ProductsList"
 import Search from "@/components/menu/Search"
+import SortBy from "@/components/menu/SortBy"
 import { getFetch } from "@/utils/fetch"
 import { Suspense } from "react"
 
@@ -28,33 +29,7 @@ export default async function MenuPage(props) {
 
                         <hr />
 
-                        <div>
-                            <label className="form-label">مرتب سازی</label>
-                            <div className="form-check my-2">
-                                <input className="form-check-input" type="radio" name="flexRadioDefault" />
-                                <label className="form-check-label cursor-pointer">
-                                    بیشترین قیمت
-                                </label>
-                            </div>
-                            <div className="form-check my-2">
-                                <input className="form-check-input" type="radio" name="flexRadioDefault" />
-                                <label className="form-check-label cursor-pointer">
-                                    کمترین قیمت
-                                </label>
-                            </div>
-                            <div className="form-check my-2">
-                                <input className="form-check-input" type="radio" name="flexRadioDefault" />
-                                <label className="form-check-label cursor-pointer">
-                                    پرفروش ترین
-                                </label>
-                            </div>
-                            <div className="form-check my-2">
-                                <input className="form-check-input" type="radio" name="flexRadioDefault" />
-                                <label className="form-check-label cursor-pointer">
-                                    با تخفیف
-                                </label>
-                            </div>
-                        </div>
+                        <SortBy/>
                     </div>
 
                     <div className="col-sm-12 col-lg-9">

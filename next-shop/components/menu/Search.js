@@ -12,11 +12,12 @@ export default function Search() {
 
     function handleQuery(remove) {
 
-        const params = new URLSearchParams()
+        const params = new URLSearchParams(searchParams)
+
+        params.delete('page')
 
         if (remove) {
             params.delete('search')
-            params.delete('page')
             setQuery('')
         } else {
             params.set('search', query)
