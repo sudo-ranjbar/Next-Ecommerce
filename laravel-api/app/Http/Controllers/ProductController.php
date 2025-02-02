@@ -225,7 +225,7 @@ class ProductController extends ApiController
 
     public function menu()
     {
-        $products = Product::filter()->search()->paginate(6);
+        $products = Product::filter()->search()->paginate(2);
 
         return $this->successResponse([
             'products' => ProductResource::collection($products->load('images')),

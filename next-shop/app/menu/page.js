@@ -1,6 +1,7 @@
 import CategoriesList from "@/components/menu/CategoriesList"
 import Loading from "@/components/menu/loading"
 import ProductsList from "@/components/menu/ProductsList"
+import Search from "@/components/menu/Search"
 import { getFetch } from "@/utils/fetch"
 import { Suspense } from "react"
 
@@ -19,18 +20,14 @@ export default async function MenuPage(props) {
                 <div className="row">
 
                     <div className="col-sm-12 col-lg-3">
-                        <div>
-                            <label className="form-label">جستجو</label>
-                            <div className="input-group mb-3">
-                                <input type="text" className="form-control" placeholder="نام محصول ..." />
-                                <a href="#" className="input-group-text">
-                                    <i className="bi bi-search"></i>
-                                </a>
-                            </div>
-                        </div>
+                        <Search />
+
                         <hr />
+
                         <CategoriesList categories={categories} />
+
                         <hr />
+
                         <div>
                             <label className="form-label">مرتب سازی</label>
                             <div className="form-check my-2">
@@ -61,7 +58,7 @@ export default async function MenuPage(props) {
                     </div>
 
                     <div className="col-sm-12 col-lg-9">
-                        <Suspense key={params.toString()} fallback={<Loading/>}>
+                        <Suspense key={params.toString()} fallback={<Loading />}>
                             <ProductsList params={params.toString()} />
                         </Suspense>
                     </div>

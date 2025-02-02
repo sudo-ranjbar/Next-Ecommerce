@@ -8,7 +8,7 @@ import { getFetch } from "@/utils/fetch";
 export default async function Home() {
 
 	const productTabs = await getFetch("/products/products-tabs")
-	
+
 
 	return (
 		<>
