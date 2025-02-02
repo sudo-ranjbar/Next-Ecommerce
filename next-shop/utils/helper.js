@@ -23,3 +23,9 @@ export function handleError(message) {
     }
 
 }
+
+export function discountPercent(price, salePrice) {
+
+    let discount = ((price - salePrice) / price) * 100
+    return Math.round(discount)
+}
