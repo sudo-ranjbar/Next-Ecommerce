@@ -5,10 +5,14 @@ import heroImg from "@/public/images/hero-bg.jpg"
 import Slider from "./Slider";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useContext } from "react";
+import AuthContext from "@/context/AuthContext";
 
 export default function Header() {
 
     const pathname = usePathname();
+
+    const { user } = useContext(AuthContext)
 
 
     return (
@@ -57,9 +61,16 @@ export default function Header() {
                                             3
                                         </span>
                                     </a>
-                                    <a href="login.html" className="btn-auth">
-                                        ورود
-                                    </a>
+                                    {user ? (
+                                        <Link href="/auth/login" className="btn-auth">
+                                            {user.name}
+                                        </Link>
+                                    ) : (
+                                        <Link href="/profile" className="btn-auth">
+                                            ورود
+                                        </Link>
+                                    )}
+
                                 </div>
 
                             </div>

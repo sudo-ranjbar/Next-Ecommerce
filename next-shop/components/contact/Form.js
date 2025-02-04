@@ -32,7 +32,7 @@ export default function FormContact() {
                         placeholder="متن پیام"></textarea>
                 </div>
                 <div className="btn_box">
-                    <Button title="ارسال پیام" ispending={isPending} />
+                    <Button title="ارسال پیام" ispending={isPending} style="" />
                 </div>
             </form>
         </div>

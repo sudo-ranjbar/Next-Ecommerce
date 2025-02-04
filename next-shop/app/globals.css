@@ -1308,3 +1308,9 @@ a:focus {
   direction: rtl;
 
 }
+
+.resend-otp-btn {
+  position: absolute;
+  left: 15px;
+  bottom: 16px;
+}

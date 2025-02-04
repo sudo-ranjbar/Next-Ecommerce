@@ -7,6 +7,7 @@ import Header from "@/components/layouts/Header";
 import ToastifyClient from "@/components/libraries/ToastifyClient";
 import Footer from "@/components/layouts/Footer";
 import Providers from "@/components/libraries/ProgressBarClient";
+import { AuthProvider } from "@/context/AuthContext";
 
 export const metadata = {
 	title: "فروشگاه غذا",
@@ -17,23 +18,25 @@ export default function RootLayout({ children }) {
 	return (
 		<html lang="fa" dir="rtl">
 			<body>
-				<Providers>
-					<Header />
-					{children}
-					<Footer />
-					<ToastifyClient
-						position="top-right"
-						autoClose={2500}
-						hideProgressBar={false}
-						newestOnTop={false}
-						closeOnClick={true}
-						rtl={true}
-						pauseOnFocusLoss
-						draggable
-						pauseOnHover
-						theme="colored" />
-					<BootstrapClient />
-				</Providers>
+				<AuthProvider>
+					<Providers>
+						<Header />
+						{children}
+						<Footer />
+						<ToastifyClient
+							position="top-right"
+							autoClose={2500}
+							hideProgressBar={false}
+							newestOnTop={false}
+							closeOnClick={true}
+							rtl={true}
+							pauseOnFocusLoss
+							draggable
+							pauseOnHover
+							theme="colored" />
+						<BootstrapClient />
+					</Providers>
+				</AuthProvider>
 			</body>
 		</html>
 	);
