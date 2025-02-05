@@ -5,24 +5,28 @@ import AuthContext from "@/context/AuthContext";
 import { useActionState, useContext, useEffect } from "react"
 import { toast } from "react-toastify"
 import ResendOtpButton from "./ResendOtpButton";
+import { useRouter } from "next/navigation";
 
 export default function OtpVerificationForm() {
 
     const [state_otp, formAction_otp, isPending] = useActionState(otpCheck, {})
 
-    const {loginContext} = useContext(AuthContext)
+    const { loginContext } = useContext(AuthContext)
+
+    const router = useRouter()
 
     useEffect(() => {
 
         toast(state_otp?.message, { type: `${state_otp?.status}` })
 
-        if(state_otp?.status === "success"){
+        if (state_otp?.status === "success") {
             loginContext(state_otp.user)
+            router.push("/")
         }
 
     }, [state_otp])
 
-    return(
+    return (
         <div className="card">
             <div className="card-body">
                 <div className="form_container">
@@ -35,7 +39,7 @@ export default function OtpVerificationForm() {
                         <Button title="تایید" ispending={isPending} style="btn btn-primary btn-auth" />
                     </form>
 
-                    <ResendOtpButton/>
+                    <ResendOtpButton />
 
                 </div>
             </div>
