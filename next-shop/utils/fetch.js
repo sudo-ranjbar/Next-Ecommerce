@@ -1,12 +1,13 @@
 
 
-export const getFetch = async (url) => {
+export const getFetch = async (url, headers = {}) => {
 
     const response = await fetch(`http://localhost:8000/api${url}`, {
         cache: 'no-store',
         headers: {
             'Content-Type': 'application/json',
-            'Accept': 'application/json'
+            'Accept': 'application/json',
+            ...headers
         },
     })
 

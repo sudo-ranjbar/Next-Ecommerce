@@ -62,11 +62,14 @@ export default function Header() {
                                         </span>
                                     </a>
                                     {user ? (
-                                        <Link href="/auth/login" className="btn-auth">
-                                            {user.name}
-                                        </Link>
+                                        <>
+                                            <Link href="/profile" className="btn-auth">
+                                                {user.name}
+                                            </Link>
+                                            <span className="btn btn-dark">Logout</span>
+                                        </>
                                     ) : (
-                                        <Link href="/profile" className="btn-auth">
+                                        <Link href="/auth/login" className="btn-auth">
                                             ورود
                                         </Link>
                                     )}
