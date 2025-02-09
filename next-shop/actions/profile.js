@@ -9,7 +9,6 @@ export async function editForm(state, formData) {
     const name = formData.get("name")
     const email = formData.get("email")
 
-
     if (name === '') {
         return {
             status: "error",

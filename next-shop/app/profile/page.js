@@ -18,7 +18,6 @@ export default async function ProfilePage() {
         'Authorization': `Bearer ${userToken.value}`
     })
 
-
     return (
         <div className="vh-70">
             <EditForm userInfo={userInfo} />
