@@ -1,11 +1,14 @@
 "use client"
 
-import { useState } from "react"
+import { createAddress } from "@/actions/profile"
+import Button from "@/components/Button"
+import { useActionState, useEffect, useState } from "react"
+import { toast } from "react-toastify"
 
 export default function CreateForm({ provinces, cities }) {
 
     const [filteredCities, setFilteredCitites] = useState(cities)
-    const [state, formAction, isPending] = useActionState(editForm, {})
+    const [stateCreate, formActionCreate, isPending] = useActionState(createAddress, {})
 
     function handleCity(e) {
         setFilteredCitites(cities.filter(city => city.province_id == e.target.value))
@@ -13,8 +16,8 @@ export default function CreateForm({ provinces, cities }) {
 
 
     useEffect(() => {
-        toast(state?.message, { type: `${state?.status}` })
-    }, [state])
+        toast(stateCreate?.message, { type: `${stateCreate?.status}` })
+    }, [stateCreate])
 
     return (
         <>
@@ -23,24 +26,24 @@ export default function CreateForm({ provinces, cities }) {
                 ایجاد آدرس جدید
             </button>
 
-            <div className="collapse mt-3" id="collapseExample">
+            <form action={formActionCreate} className="collapse mt-3" id="collapseExample">
                 <div className="card card-body">
                     <div className="row g-4">
                         <div className="col col-md-6">
                             <label className="form-label">عنوان</label>
-                            <input type="text" className="form-control" />
+                            <input name="title" type="text" className="form-control" />
                         </div>
                         <div className="col col-md-6">
                             <label className="form-label">شماره تماس</label>
-                            <input type="text" className="form-control" />
+                            <input name="contactPhone" type="text" className="form-control" />
                         </div>
                         <div className="col col-md-6">
                             <label className="form-label">کد پستی</label>
-                            <input type="text" className="form-control" />
+                            <input name="zipCode" type="text" className="form-control" />
                         </div>
                         <div className="col col-md-6">
                             <label className="form-label">استان</label>
-                            <select className="form-select" onChange={handleCity}>
+                            <select name="province" className="form-select" onChange={handleCity}>
                                 {provinces.map(province => (
                                     <option key={province.id} value={province.id}>{province.name}</option>
                                 ))}
@@ -48,7 +51,7 @@ export default function CreateForm({ provinces, cities }) {
                         </div>
                         <div className="col col-md-6">
                             <label className="form-label">شهر</label>
-                            <select className="form-select">
+                            <select name="city" className="form-select">
                                 {filteredCities.map(city => (
                                     <option key={city.id} value={city.id}>{city.name}</option>
                                 ))}
@@ -56,14 +59,14 @@ export default function CreateForm({ provinces, cities }) {
                         </div>
                         <div className="col col-md-12">
                             <label className="form-label">آدرس</label>
-                            <textarea type="text" rows="5" className="form-control"></textarea>
+                            <textarea name="locationAddress" type="text" rows="5" className="form-control"></textarea>
                         </div>
                     </div>
                     <div>
-                        <button className="btn btn-primary mt-4">ایجاد</button>
+                        <Button title="ایجاد" style="btn btn-primary mt-4" isPending={isPending} />
                     </div>
                 </div>
-            </div>
+            </form>
         </>
     )
 }

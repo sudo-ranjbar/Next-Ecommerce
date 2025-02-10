@@ -49,3 +49,80 @@ export async function editForm(state, formData) {
         }
     }
 }
+
+export async function createAddress(stateCreate, formData) {
+
+    const title = formData.get("title")
+    const contactPhone = formData.get("contactPhone")
+    const zipCode = formData.get("zipCode")
+    const province = formData.get("province")
+    const city = formData.get("city")
+    const locationAddress = formData.get("locationAddress")
+
+    if (title === "") {
+        return {
+            status: "error",
+            message: "فیلد عنوان الزامی است"
+        }
+    }
+
+    const phonePattern = /^(\=98|0)?9\d{9}$/i;
+
+    if (contactPhone === '' || !phonePattern.test(contactPhone)) {
+        return {
+            status: "error",
+            message: "فیلد شماره تلفن نامعتبر است"
+        }
+    }
+
+    // const zipCodePattern = /^\d{5}[ -]?\d{5}$/i;
+
+    if (zipCode === '') {
+        return {
+            status: "error",
+            message: "فیلد کد پستی نامعتبر است"
+        }
+    }
+
+    if (locationAddress === "") {
+        return {
+            status: "error",
+            message: "فیلد آدرس الزامی است"
+        }
+    }
+
+    const userToken = (await cookies()).get('token')
+
+    if (!userToken) {
+        return {
+            status: "error",
+            message: "undefined user_token!"
+        }
+    }
+
+    const data = await postFetch("/profile/addresses/create",
+        {
+            title: title,
+            cellphone: contactPhone,
+            postal_code: zipCode,
+            province_id: province,
+            city_id: city,
+            address: locationAddress
+        },
+        { 'Authorization': `Bearer ${userToken.value}` }
+    )
+
+    if (data.status === 'success') {
+        return {
+            status: data.status,
+            message: "ثبت آدرس با موفقیت انجام شد"
+        }
+    } else {
+        return {
+            status: data.status,
+            message: handleError(data.message)
+        }
+    }
+
+
+}
