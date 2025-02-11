@@ -10,7 +10,7 @@ import { Suspense } from "react"
 export default async function MenuPage(props) {
 
     const searchParams = await props.searchParams
-
+    
     const params = new URLSearchParams(searchParams)
 
     const categories = await getFetch("/categories")

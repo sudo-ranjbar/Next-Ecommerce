@@ -130,7 +130,7 @@ export async function resendOtp(state_resend, formData) {
                 value: data.data.login_token,
                 httpOnly: true,
                 path: '/',
-                maxAge: 60 * 5 
+                maxAge: 60 * 5
             }
         )
 
@@ -156,7 +156,7 @@ export async function me() {
             message: "undefined user_token!"
         }
     }
-    
+
     const data = await postFetch("/auth/me", {}, {
         'Authorization': `Bearer ${userToken.value}`
     })
@@ -164,6 +164,34 @@ export async function me() {
     if (data.status === 'success') {
         return {
             user: data.data
+        }
+    } else {
+        return {
+            error: "User Forbidden"
+        }
+    }
+}
+
+export async function logout() {
+
+    const userToken = (await cookies()).get('token')
+
+    if (!userToken) {
+        return {
+            status: "error",
+            message: "undefined user_token!"
+        }
+    }
+
+    const data = await postFetch("/auth/logout", {}, {
+        'Authorization': `Bearer ${userToken.value}`
+    })
+
+    if (data.status === 'success') {
+        (await cookies()).delete('token');
+        
+        return {
+            success: "شما از حساب خود خارج شدید"
         }
     } else {
         return {

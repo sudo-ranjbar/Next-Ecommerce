@@ -1,15 +1,15 @@
 "use client"
 
-import { createAddress } from "@/actions/profile"
+import { editAddress } from "@/actions/profile"
 import Button from "@/components/Button"
 import { useActionState, useEffect, useState } from "react"
 import { toast } from "react-toastify"
+import DeleteForm from "./DeleteForm"
 
-export default function CreateForm({ provinces, cities }) {
+export default function EditForm({ address, provinces, cities }) {
 
-    const [filteredCities, setFilteredCitites] = useState(cities.filter(city => city.province_id == provinces[0].id))
-    
-    const [stateCreate, formActionCreate, isPending] = useActionState(createAddress, {})
+    const [filteredCities, setFilteredCitites] = useState(cities)
+    const [stateEdit, formActionEdit, isPending] = useActionState(editAddress, {})
 
     function handleCity(e) {
         setFilteredCitites(cities.filter(city => city.province_id == e.target.value))
@@ -17,34 +17,29 @@ export default function CreateForm({ provinces, cities }) {
 
 
     useEffect(() => {
-        toast(stateCreate?.message, { type: `${stateCreate?.status}` })
-    }, [stateCreate])
+        toast(stateEdit?.message, { type: `${stateEdit?.status}` })
+    }, [stateEdit])
 
     return (
         <>
-            <button className="btn btn-primary" type="button" data-bs-toggle="collapse"
-                data-bs-target="#collapseExample">
-                ایجاد آدرس جدید
-            </button>
-
-            <form action={formActionCreate} className="collapse mt-3" id="collapseExample">
-                <div className="card card-body">
+            <div className="position-relative">
+                <form action={formActionEdit} className="card card-body mt-3">
                     <div className="row g-4">
                         <div className="col col-md-6">
                             <label className="form-label">عنوان</label>
-                            <input name="title" type="text" className="form-control" />
+                            <input name="title" defaultValue={address.title} type="text" className="form-control" />
                         </div>
                         <div className="col col-md-6">
                             <label className="form-label">شماره تماس</label>
-                            <input name="contactPhone" type="text" className="form-control" />
+                            <input name="contactPhone" defaultValue={address.cellphone} type="text" className="form-control" />
                         </div>
                         <div className="col col-md-6">
                             <label className="form-label">کد پستی</label>
-                            <input name="zipCode" type="text" className="form-control" />
+                            <input name="zipCode" defaultValue={address.postal_code} type="text" className="form-control" />
                         </div>
                         <div className="col col-md-6">
                             <label className="form-label">استان</label>
-                            <select name="province" className="form-select" onChange={handleCity}>
+                            <select name="province" defaultValue={address.province_id} className="form-select" onChange={handleCity}>
                                 {provinces.map(province => (
                                     <option key={province.id} value={province.id}>{province.name}</option>
                                 ))}
@@ -52,7 +47,7 @@ export default function CreateForm({ provinces, cities }) {
                         </div>
                         <div className="col col-md-6">
                             <label className="form-label">شهر</label>
-                            <select name="city" className="form-select">
+                            <select name="city" defaultValue={address.city_id} className="form-select">
                                 {filteredCities.map(city => (
                                     <option key={city.id} value={city.id}>{city.name}</option>
                                 ))}
@@ -60,14 +55,16 @@ export default function CreateForm({ provinces, cities }) {
                         </div>
                         <div className="col col-md-12">
                             <label className="form-label">آدرس</label>
-                            <textarea name="locationAddress" type="text" rows="5" className="form-control"></textarea>
+                            <textarea name="locationAddress" defaultValue={address.address} type="text" rows="5" className="form-control"></textarea>
                         </div>
+                        <input type="hidden" name="address_id" value={address.id} />
                     </div>
                     <div>
-                        <Button title="ایجاد" style="btn btn-primary mt-4" isPending={isPending} />
+                        <Button title="ویرایش" style="btn btn-primary mt-4" isPending={isPending} />
                     </div>
-                </div>
-            </form>
+                </form>
+                <DeleteForm address={address} />
+            </div>
         </>
     )
 }
