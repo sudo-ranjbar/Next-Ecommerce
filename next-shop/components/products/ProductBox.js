@@ -1,7 +1,23 @@
+"use client"
 import Image from "next/image"
 import { numberFormat } from "@/utils/helper"
 import Link from "next/link"
+import { useDispatch, useSelector } from "react-redux"
+import { addToCart, removeFromCart } from "@/redux/slices/cartSlice"
+import { toast } from "react-toastify"
+
 export default function ProductBox({ product }) {
+
+    const dispatch = useDispatch()
+
+    function handleAddToCart(product) {
+
+        dispatch(removeFromCart(product.id))
+
+        dispatch(addToCart({ product, qty: 1 }))
+
+        toast.success("محصول به سبد خرید اضافه شد")
+    }
 
     return (
         <div className="box">
@@ -42,9 +58,9 @@ export default function ProductBox({ product }) {
                             <span className="ms-1">تومان</span>
 
                         </h6>
-                        <a href="">
+                        <button onClick={(e) => handleAddToCart(product)}>
                             <i className="bi bi-cart-fill text-white fs-5"></i>
-                        </a>
+                        </button>
                     </div>
                 </div>
             </div>

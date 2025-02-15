@@ -1,4 +1,5 @@
 import ProductBox from "@/components/products/ProductBox"
+import ShoppingCart from "@/components/products/ShoppingCart"
 import { getFetch } from "@/utils/fetch"
 import { discountPercent, numberFormat } from "@/utils/helper"
 import Image from "next/image"
@@ -42,18 +43,7 @@ export default async function ProductSinglePage(prop) {
                                     </h5>
                                     <p>{product.description}</p>
 
-                                    <div className="mt-5 d-flex">
-                                        <button className="btn-add">افزودن به سبد خرید</button>
-                                        <div className="input-counter ms-4">
-                                            <span className="plus-btn">
-                                                +
-                                            </span>
-                                            <div className="input-number">1</div>
-                                            <span className="minus-btn">
-                                                -
-                                            </span>
-                                        </div>
-                                    </div>
+                                    <ShoppingCart product={product} />
                                 </div>
 
                                 <div className="col-sm-12 col-lg-6">
