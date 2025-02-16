@@ -1,0 +1,51 @@
+"use server"
+
+import { getFetch, postFetch } from "@/utils/fetch"
+import { handleError } from "@/utils/helper"
+import { cookies } from "next/headers"
+
+
+export async function checkCoupon(state, formData) {
+
+    const coupon_code = formData.get("coupon_code")
+
+    if (coupon_code === '') {
+        return {
+            status: "error",
+            message: "کد تخفیف را وارد کنید!"
+        }
+    }
+
+    const userToken = (await cookies()).get('token')
+
+    if (!userToken) {
+        return {
+            status: "error",
+            message: "undefined user_token!"
+        }
+    }
+
+    const data = await postFetch("/check-coupon",
+        { code: coupon_code },
+        { 'Authorization': `Bearer ${userToken.value}` }
+    )
+
+    if (data.status === 'success') {
+        return {
+            status: data.status,
+            message: "کد تخفیف با موفقیت اعمال شد",
+            percentage: data.data.percentage,
+            coupon_code
+        }
+    } else {
+        return {
+            status: data.status,
+            message: handleError(data.message)
+        }
+    }
+}
+
+export async function getAddresses() {
+    const token = (await cookies()).get('token');
+    return await getFetch('/user/addresses', { 'Authorization': `Bearer ${token.value}` });
+}
