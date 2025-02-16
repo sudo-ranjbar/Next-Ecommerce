@@ -2,6 +2,7 @@
 
 import Address from "@/components/cart/Address"
 import Coupon from "@/components/cart/Coupon"
+import Payment from "@/components/cart/Payment"
 import Empty from "@/components/products/Empty"
 import { clearCart, decrement, increment, removeFromCart, totalCartAmount } from "@/redux/slices/cartSlice"
 import { discountPercent, numberFormat } from "@/utils/helper"
@@ -103,7 +104,7 @@ export default function CartPage() {
                                 <div className="row mt-4">
                                     <Coupon setCoupon={setCoupon} />
                                     <div className="col-12 col-md-6 d-flex justify-content-end align-items-baseline">
-                                        <Address setAddressId={setAddressId}/>
+                                        <Address setAddressId={setAddressId} />
                                     </div>
                                 </div>
 
@@ -134,7 +135,7 @@ export default function CartPage() {
                                                         </div>
                                                     </li>
                                                 </ul>
-                                                <button className="user_option btn-auth mt-4">پرداخت</button>
+                                                <Payment cart={state.cart} coupon={coupon} addressId={addressId} />
                                             </div>
                                         </div>
                                     </div>
