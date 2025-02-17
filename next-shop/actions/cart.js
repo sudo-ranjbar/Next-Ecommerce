@@ -94,3 +94,32 @@ export async function payment(state, formData) {
         }
     }
 }
+
+export async function paymentVerify(trackId, status) {
+
+    const userToken = (await cookies()).get('token')
+
+    if (!userToken) {
+        return {
+            status: "error",
+            message: "undefined user_token!"
+        }
+    }
+
+    const data = await postFetch("/payment/verify", {
+        token: trackId,
+        status
+    }, { 'Authorization': `Bearer ${userToken.value}` })
+
+    if (data.status === 'success') {
+        return {
+            status: data.status,
+            payment: data.data
+        }
+    } else {
+        return {
+            status: data.status,
+            message: handleError(data.message)
+        }
+    }
+}
